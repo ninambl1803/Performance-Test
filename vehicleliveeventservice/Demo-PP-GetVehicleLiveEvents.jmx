@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Demo-PP-GetVehicleLiveEvents" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">${__P(noThreads,1)}</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">${__P(rampup,1)}</stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">900</stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+            <collectionProp name="Arguments.arguments"/>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">parentportalgateway-p01-demo.usw2.karrostech.net</stringProp>
+          <stringProp name="HTTPSampler.port"></stringProp>
+          <stringProp name="HTTPSampler.protocol">https</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path">api/v1/pp/vehicleliveevents?routeId=66898b3b-4a0d-40fb-880d-9c19b75c7f37&amp;runId=605aa42e-3177-429a-890f-08ab4a0c0c6e&amp;sourceApp=PP&amp;stopIds=9b04b8ba-b40e-4db3-9984-1e2a5fe5e304%2C77c388a1-d587-44a5-b056-329348b9f2a5&amp;studentDistrictId=1006106&amp;tenantId=087192f6-4cd5-4037-9dcb-5dbf378aa41f&amp;vehicleId=ffc4f15e-b326-4407-88d7-47ace62880e0</stringProp>
+          <stringProp name="HTTPSampler.method">GET</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree>
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+            <collectionProp name="HeaderManager.headers">
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">scope</stringProp>
+                <stringProp name="Header.value">Parent Portal</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">ApiKey</stringProp>
+                <stringProp name="Header.value">94d9b8d2c7433f7145ae5d83bf2a73310b6c0628</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Authorization</stringProp>
+                <stringProp name="Header.value">Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8va2Fycm9zdGVjaC5pbyIsInN1YiI6IjlhNDU1MjhmLTM2YzAtNDdlMS1hODcwLTk1OWEzY2NhODUxMyIsInBlcnNvbklkIjoiY2VjZTYzM2QtOTdkZC00YWMxLThiNGUtODI4Y2M5Njc1MjkyIiwidXNlcklkIjoiYWRtaW5Aa2Fycm9zdGVjaC5jb20iLCJpYXQiOjE1Mzg2MjIwMDksImV4cCI6MTUzODYyMzczNDAwMCwiYXVkIjoiOTRkOWI4ZDJjNzQzM2Y3MTQ1YWU1ZDgzYmYyYTczMzEwYjZjMDYyOCIsInNjb3BlIjpbIio6UGFyZW50OlVzZXIiXSwiYXV0aG9yaXphdGlvbiI6eyJncm91cHMiOlt7Imdyb3VwTmFtZSI6IkVkdWxvZyIsInJvbGVzIjpbIlN5c3RlbSBBZG1pbiJdfSx7Imdyb3VwTmFtZSI6IkRyaXZlciIsInJvbGVzIjpbIlN5c3RlbSBBZG1pbiJdfSx7Imdyb3VwTmFtZSI6IlBhcmVudCIsInJvbGVzIjpbIlN5c3RlbSBBZG1pbiJdfSx7Imdyb3VwTmFtZSI6IlRlbmFudCIsInJvbGVzIjpbIlN5c3RlbSBBZG1pbiJdfSx7Imdyb3VwTmFtZSI6IkRldmVsb3BlciIsInJvbGVzIjpbIlN5c3RlbSBBZG1pbiJdfSx7Imdyb3VwTmFtZSI6IlNjaG9vbCIsInJvbGVzIjpbIlN5c3RlbSBBZG1pbiJdfSx7Imdyb3VwTmFtZSI6IkthcnJvcyIsInJvbGVzIjpbIlN5c3RlbSBBZG1pbiJdfV19fQ.jFminzu2BnYCb0jCq-Kik9Ub13eVt4UmkMV7riu8YWA</stringProp>
+              </elementProp>
+              <elementProp name="" elementType="Header">
+                <stringProp name="Header.name">Content-Type</stringProp>
+                <stringProp name="Header.value">application/json</stringProp>
+              </elementProp>
+            </collectionProp>
+          </HeaderManager>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
